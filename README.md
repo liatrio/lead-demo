@@ -10,9 +10,9 @@
 * watch slack for build and deploy progress
 
 # TODO
-[ ] Jenkinsfile
-[ ] Dockerfile
-[ ] helm chart
-[ ] skaffold.yaml
-[ ] app
-[ ] list of talking points 
+* [ ] Jenkinsfile
+* [ ] Dockerfile
+* [ ] helm chart
+* [ ] skaffold.yaml
+* [ ] app
+* [ ] list of talking points 
