@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  metadata:
+  name: ratings-v1
+  labels:
+    chart: {{ template "bookinfo.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.ratings.replicas }}
+  selector:
+    matchLabels:
+      app: ratings
+      release: {{ .Release.Name }}
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: ratings
+        release: {{ .Release.Name }}
+        version: v1
+    spec:
+      containers:
+      - name: ratings
+        image: {{ .Values.ratings.image }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 9080
+          protocol: TCP
+        livenessProbe:
+            httpGet:
+              path: /health
+              port: 9080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecrets }}

@@ -1,0 +1,31 @@
+# Default values for bookinfo.
+productpage:
+  image: istio/examples-bookinfo-productpage-v1:1.8.0
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 9080
+
+details:
+  image: istio/examples-bookinfo-details-v1:1.8.0
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 9080
+
+ratings:
+  image: istio/examples-bookinfo-ratings-v1:1.8.0
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 9080
+
+reviews:
+  image:
+    v1: istio/examples-bookinfo-reviews-v1:1.8.0
+    v2: istio/examples-bookinfo-reviews-v2:1.8.0
+    v3: istio/examples-bookinfo-reviews-v3:1.8.0
+  replicas: 1
+  service:
+    type: ClusterIP
+    port: 9080

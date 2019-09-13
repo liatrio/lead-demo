@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  metadata:
+  name: reviews-v3
+  labels:
+    chart: {{ template "bookinfo.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.reviews.replicas }}
+  selector:
+    matchLabels:
+      app: reviews
+      release: {{ .Release.Name }}
+      version: v3
+  template:
+    metadata:
+      labels:
+        app: reviews
+        release: {{ .Release.Name }}
+        version: v3
+    spec:
+      containers:
+      - name: ratings
+        image: {{ .Values.reviews.image.v3 }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 9080
+          protocol: TCP
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecrets }}

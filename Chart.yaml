@@ -1,0 +1,11 @@
+apiVersion: v1
+name: bookinfo
+version: 0.1.2
+description: Helm chart for Istio demo bookinfo
+home: https://github.com/jackzzj/bookinfo
+sources:
+  - https://github.com/jackzzj/bookinfo
+maintainers: # (optional)
+  - name: Kaijie Zhan
+    email: ceres0503@icloud.com
+    url: https://github.com/jackzzj

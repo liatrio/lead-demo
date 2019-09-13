@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  metadata:
+  name: details-v1
+  labels:
+    chart: {{ template "bookinfo.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.details.replicas }}
+  selector:
+    matchLabels:
+      app: details
+      release: {{ .Release.Name }}
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: details
+        release: {{ .Release.Name }}
+        version: v1
+    spec:
+      containers:
+      - name: details
+        image: {{ .Values.details.image }}
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 9080
+          protocol: TCP
+        livenessProbe:
+            httpGet:
+              path: /health
+              port: 9080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 9080
+          initialDelaySeconds: 5
+          periodSeconds: 5
+      imagePullSecrets:
+      - name: {{ .Values.imagePullSecrets }}
